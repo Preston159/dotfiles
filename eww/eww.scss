@@ -44,6 +44,15 @@ $power-button-margin-inline: 1em;
   button {
     padding: 0 1em;
     border-bottom: 3px solid black;
+
+    &.empty {
+      padding: 0;
+      border: none;
+    }
+  }
+
+  button.special {
+    border-color: $workspaces-color-active;
   }
 
   button:hover {
