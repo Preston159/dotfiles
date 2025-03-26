@@ -187,12 +187,12 @@ cexplain() {
 }
 
 export DOTNET_ROOT="/home/linuxbrew/.linuxbrew/opt/dotnet/libexec"
-export PATH="/home/preston/jdk-23/bin/:$PATH"
+export PATH="$HOME/jdk-23/bin/:$PATH"
 
 # fnm
-FNM_PATH="/home/preston/.local/share/fnm"
+FNM_PATH="$HOME/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/preston/.local/share/fnm:$PATH"
+  export PATH="$HOME/.local/share/fnm:$PATH"
   eval "`fnm env`"
 fi
 
