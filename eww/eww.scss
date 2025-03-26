@@ -1,0 +1,105 @@
+$color-text: #ffffff;
+$padding-vertical: 1px;
+$padding-horizontal: 10px;
+$background-color: #333;
+$opacity: 1.0;
+
+
+$workspaces-color-active: #00f7ff;
+$workspaces-color-hover: #d35d6e;
+$workspaces-color-text: $color-text;
+
+$color-text-sidestuff: $color-text;
+$color-slider: #d35d6e;
+$color-slider-background: #4e4e4e;
+
+$power-button-width: 70px;
+$power-button-color-border: black;
+$power-button-border-radius: 0.5em;
+$power-button-margin-inline: 1em;
+
+* {
+  all: unset;
+}
+
+@mixin bar-button() {
+  &:hover {
+    background-color: red;
+  }
+}
+
+.topbar_primary, .topbar_left, .topbar_right {
+  background-color: $background-color;
+  opacity: $opacity;
+  background-size: cover;
+  background-position: center;
+  color: $color-text;
+  padding: $padding-vertical $padding-horizontal;
+}
+
+.workspaces {
+  color: $workspaces-color-text;
+
+  button:hover {
+    color: $workspaces-color-hover;
+  }
+}
+
+@mixin active-workspace($i) {
+  .workspace-#{$i}.activeworkspace-#{$i} {
+    color: $workspaces-color-active;
+  }
+}
+@for $i from 1 through 9 {
+  @include active-workspace($i);
+}
+
+.sidestuff {
+  color: $color-text-sidestuff;
+
+  slider {
+    all: unset;
+  }
+}
+
+.metric scale trough highlight {
+  all: unset;
+  background-color: $color-slider;
+  border-radius: 10px;
+}
+
+.metric scale trough {
+  all: unset;
+  background-color: $color-slider-background;
+  border-radius: 50px;
+  min-height: 3px;
+  min-width: 50px;
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.power-button {
+  min-width: $power-button-width;
+  border: 1px solid $power-button-color-border;
+  border-radius: $power-button-border-radius;
+  margin: 0 $power-button-margin-inline;
+
+  @include bar-button();
+}
+
+.label-ram {
+  font-size: large;
+}
+
+.power_menu {
+  padding: 0.3em;
+  background-color: black;
+  border-radius: 0.5em;
+
+  button {
+    border: 1px solid purple;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin: 0.1em;
+  }
+}

@@ -1,0 +1,160 @@
+(defwindow topbar_primary
+           :monitor 'DP-3'
+           :geometry (geometry :x "0%"
+                               :y "0px"
+                               :width "100%"
+                               :height "30px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "40px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+           :exclusive true
+  (bar_primary))
+
+(defwindow topbar_right
+           :monitor 'DP-2'
+           :geometry (geometry :x "0%"
+                               :y "0px"
+                               :width "100%"
+                               :height "30px"
+                               :anchor "top center")
+           :stacking "fg"
+           :reserve (struts :distance "40px" :side "top")
+           :windowtype "dock"
+           :wm-ignore false
+           :exclusive true
+  (bar_right))
+
+(defwindow topbar_left
+           :monitor 'HDMI-A-2'
+           :geometry (geometry :x "0%"
+                               :y "0px"
+                               :width "100%"
+                               :height "30px"
+                               :anchor "top center")
+           :stacking "fg"
+           :windowtype "dock"
+           :wm-ignore false
+           :exclusive true
+  (bar_left))
+
+(defwidget bar_left []
+  (centerbox :orientation "h"
+    (workspaces_left)
+    (window)
+    (sidestuff)))
+
+(defwidget bar_primary []
+  (centerbox :orientation "h"
+    (workspaces_primary)
+    (window)
+    (sidestuff)))
+
+(defwidget bar_right []
+  (centerbox :orientation "h"
+    (workspaces_right)
+    (window)
+    (sidestuff)))
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+    (power)
+    (button :onclick "pavucontrol &"
+            (box :class "label" "🔊"))
+    (metric :label ""
+            :value volume
+            :onchange "amixer sset Master {}%")
+    (metric :label "🐏"
+            :value {EWW_RAM.used_mem_perc}
+            :onchange "")
+    (metric :label "💾"
+            :value {round((1 - (EWW_DISK["/var/home"].free / EWW_DISK["/var/home"].total)) * 100, 0)}
+            :onchange "")
+    time))
+
+(defwidget power []
+  (button :class "power-button"
+          :onclick "scripts/open-power-menu"
+    (box
+         :halign "center"
+         "🔌")))
+
+(defwidget workspaces_left []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :class "workspace-1 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 1" 1)
+    (button :class "workspace-4 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 4" 4)
+    (button :class "workspace-7 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 7" 7)
+    (button :class "workspace-8 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 8" 8)
+    (button :class "workspace-9 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 9" 9)))
+
+(defwidget workspaces_primary []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :class "workspace-2 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 2" 2)
+    (button :class "workspace-5 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 5" 5)
+    (button :class "workspace-7 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 7" 7)
+    (button :class "workspace-8 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 8" 8)
+    (button :class "workspace-9 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 9" 9)))
+
+(defwidget workspaces_right []
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :class "workspace-3 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 3" 3)
+    (button :class "workspace-6 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 6" 6)
+    (button :class "workspace-7 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 7" 7)
+    (button :class "workspace-8 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 8" 8)
+    (button :class "workspace-9 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 9" 9)))
+
+(defwidget window []
+  (box :class "window-title"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    windowtitle))
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+(defpoll windowtitle :interval "1s"
+  "hyprctl activewindow -j | jq -r .title")
+
+(defpoll activeworkspace :interval "1s"
+  "hyprctl activeworkspace -j | jq -r .id")
+
+(defpoll volume :interval "1s"
+  "scripts/getvol")
+
+(defpoll time :interval "2s"
+  "date '+%H:%M %a %b %d'")
+
+(defwindow power_menu [mon x y]
+  :geometry (geometry :x x
+                      :y y)
+  :monitor mon
+  (box :orientation "v"
+       :space-evenly true
+    (button :onclick "eww close power_menu"
+      (box "close"))
+    (button :onclick "shutdown -h now"
+      (box "shutdown"))
+    (button :onclick "shutdown -r now"
+      (box "restart"))))

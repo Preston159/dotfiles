@@ -1,0 +1,18 @@
+#!/bin/bash
+MONITORS="$(hyprctl monitors -j)"
+CURSORPOS="$(hyprctl cursorpos -j)"
+CURSOR_X="$(echo "$CURSORPOS" | jq .x)"
+CURSOR_Y="$(echo "$CURSORPOS" | jq .y)"
+for i in {0..2}; do
+  MONITOR="$(echo "$MONITORS" | jq ".[$i]")"
+  MONITOR_X1="$(echo "$MONITOR" | jq .x)"
+  MONITOR_Y="$(echo "$MONITOR" | jq .y)"
+  MONITOR_WIDTH="$(echo "$MONITOR" | jq .width)"
+  MONITOR_X2="$(($MONITOR_X1 + $MONITOR_WIDTH))"
+  if [[ $CURSOR_X -gt $MONITOR_X1 && $CURSOR_X -lt $MONITOR_X2 ]]; then
+    MON="$(echo "$MONITOR" | jq -r .name)"
+    MON_X="$(("$CURSOR_X" - "$MONITOR_X1"))"
+    MON_Y="$(("$CURSOR_Y" - "$MONITOR_Y"))"
+  fi
+done
+eww open power_menu --arg mon=$MON --arg x=$(($MON_X - 20)) --arg y=$(($MON_Y - 20))
