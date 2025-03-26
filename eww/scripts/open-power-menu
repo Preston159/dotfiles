@@ -15,4 +15,4 @@ for i in {0..2}; do
     MON_Y="$(("$CURSOR_Y" - "$MONITOR_Y"))"
   fi
 done
-eww open power_menu --arg mon=$MON --arg x=$(($MON_X - 20)) --arg y=$(($MON_Y - 20))
+eww open power_menu --toggle --arg mon=$MON --arg x=$(($MON_X - 20)) --arg y=$(($MON_Y - 20))

@@ -149,8 +149,6 @@
   :monitor mon
   (box :orientation "v"
        :space-evenly true
-    (button :onclick "eww close power_menu"
-      (box "close"))
     (button :onclick "shutdown -h now"
       (box "shutdown"))
     (button :onclick "shutdown -r now"
