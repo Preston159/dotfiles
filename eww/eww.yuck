@@ -85,7 +85,6 @@
        :orientation "h"
        :space-evenly true
        :halign "start"
-       :spacing 10
     (button :class "workspace-1 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 1" 1)
     (button :class "workspace-4 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 4" 4)
     (button :class "workspace-7 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 7" 7)
@@ -97,7 +96,6 @@
        :orientation "h"
        :space-evenly true
        :halign "start"
-       :spacing 10
     (button :class "workspace-2 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 2" 2)
     (button :class "workspace-5 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 5" 5)
     (button :class "workspace-7 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 7" 7)
@@ -109,7 +107,6 @@
        :orientation "h"
        :space-evenly true
        :halign "start"
-       :spacing 10
     (button :class "workspace-3 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 3" 3)
     (button :class "workspace-6 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 6" 6)
     (button :class "workspace-7 activeworkspace-${activeworkspace}" :onclick "hyprctl dispatch workspace 7" 7)

@@ -1,12 +1,13 @@
 $color-text: #ffffff;
-$padding-vertical: 1px;
-$padding-horizontal: 10px;
+$padding-vertical: 0;
+$padding-left: 0;
+$padding-right: 10px;
 $background-color: #333;
 $opacity: 1.0;
 
 
-$workspaces-color-active: #00f7ff;
-$workspaces-color-hover: #d35d6e;
+$workspaces-color-active: #d35d6e;
+$workspaces-color-hover: #ff00dd;
 $workspaces-color-text: $color-text;
 
 $color-text-sidestuff: $color-text;
@@ -34,20 +35,25 @@ $power-button-margin-inline: 1em;
   background-size: cover;
   background-position: center;
   color: $color-text;
-  padding: $padding-vertical $padding-horizontal;
+  padding: $padding-vertical $padding-right $padding-vertical $padding-left;
 }
 
 .workspaces {
   color: $workspaces-color-text;
 
+  button {
+    padding: 0 1em;
+    border-bottom: 3px solid black;
+  }
+
   button:hover {
-    color: $workspaces-color-hover;
+    border-color: $workspaces-color-hover;
   }
 }
 
 @mixin active-workspace($i) {
   .workspace-#{$i}.activeworkspace-#{$i} {
-    color: $workspaces-color-active;
+    border-color: $workspaces-color-active;
   }
 }
 @for $i from 1 through 9 {
