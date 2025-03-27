@@ -48,10 +48,13 @@
     (sidestuff)))
 
 (defwidget sidestuff []
-  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+  (box :class "sidestuff"
+       :orientation "h"
+       :space-evenly false
+       :halign "end"
     (power)
     (button :onclick "pavucontrol &"
-            (box :class "label" "🔊"))
+      (box :class "label" "🔊"))
     (metric :label ""
             :value volume
             :onchange "amixer sset Master {}%")
@@ -66,9 +69,7 @@
 (defwidget power []
   (button :class "power-button"
           :onclick "scripts/open-window-at-cursor power_menu -20 -20"
-    (box
-         :halign "center"
-         "🔌")))
+    (box :halign "center" "🔌")))
 
 (defwidget workspaces [monworkspaces monitor]
   (box :class "workspaces"
@@ -76,7 +77,9 @@
        :space-evenly false
        :halign "start"
     (for workspace in monworkspaces
-      (button :class "workspace-${workspace} activeworkspace-${monitors[monitor].activeWorkspace.name}" :onclick "hyprctl dispatch workspace ${workspace}" {workspace}))
+      (button :class "workspace-${workspace} activeworkspace-${monitors[monitor].activeWorkspace.name}"
+              :onclick "hyprctl dispatch workspace ${workspace}"
+        {workspace}))
     (button :class "special ${monitors[monitor].specialWorkspace.name == '' ? 'empty' : ''}"
       {monitors[monitor].specialWorkspace.name =~ '^special:.+$' ? substring(monitors[monitor].specialWorkspace.name, 8, 1): ''})))
 
@@ -150,8 +153,12 @@
       (box :orientation "h"
            :space-evenly true
         (for workspace in workspaces
-          (pointerbutton2v :onclick "hyprctl dispatch workspace ${workspace} & eww close workspace_selector" :text workspace :text2 {workspacewindows[workspace]}))))
+          (pointerbutton2v :onclick "hyprctl dispatch workspace ${workspace} & eww close workspace_selector"
+                           :text workspace
+                           :text2 {workspacewindows[workspace]}))))
     (box :orientation "h"
          :space-evenly true
       (for workspace in '["A","S", "D"]'
-        (pointerbutton2v :onclick "hyprctl dispatch togglespecialworkspace ${workspace} & eww close workspace_selector" :text workspace :text2 {workspacewindows["special:${workspace}"]})))))
+        (pointerbutton2v :onclick "hyprctl dispatch togglespecialworkspace ${workspace} & eww close workspace_selector"
+                         :text workspace
+                         :text2 {workspacewindows["special:${workspace}"]})))))
