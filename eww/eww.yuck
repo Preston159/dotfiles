@@ -135,8 +135,12 @@
            :stacking "fg"
   (box :orientation "v"
        :space-evenly true
-    (for workspaces in '[[1,2,3],[4,5,6],[7,8,9],["A","S","D"]]'
+    (for workspaces in '[[1,2,3],[4,5,6],[7,8,9]]'
       (box :orientation "h"
            :space-evenly true
         (for workspace in workspaces
-          (button workspace))))))
+          (button :onclick "hyprctl dispatch workspace ${workspace} & eww close workspace_selector" workspace))))
+    (box :orientation "h"
+           :space-evenly true
+      (for workspace in '["A","S", "D"]'
+        (button :onclick "hyprctl dispatch togglespecialworkspace ${workspace} & eww close workspace_selector" workspace)))))
