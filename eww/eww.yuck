@@ -8,8 +8,6 @@
                                :height "30px"
                                :anchor "top center")
            :stacking "fg"
-           :reserve (struts :distance "40px" :side "top")
-           :windowtype "dock"
            :wm-ignore false
            :exclusive true
   (bar :monworkspaces '[2,5,7,8,9]'
@@ -23,8 +21,6 @@
                                :height "30px"
                                :anchor "top center")
            :stacking "fg"
-           :reserve (struts :distance "40px" :side "top")
-           :windowtype "dock"
            :wm-ignore false
            :exclusive true
   (bar :monworkspaces '[3,6,7,8,9]'
@@ -146,7 +142,7 @@
            :geometry (geometry :x x
                                :y y)
            :monitor mon
-           :stacking "fg"
+           :stacking "overlay"
            :focusable "none"
   (box :orientation "v"
        :space-evenly true
