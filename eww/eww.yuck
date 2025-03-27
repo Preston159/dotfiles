@@ -106,12 +106,13 @@
   (eventbox :cursor "pointer"
     (button :onclick onclick text)))
 
-(defwidget pointerbutton2v [onclick text text2]
+(defwidget pointerbutton2v [onclick text text2 ?tooltipText]
   (eventbox :cursor "pointer"
-    (button :onclick onclick  
-      (box :orientation "v"
-        (box :class "t1" text)
-        (box :class "t2" text2)))))
+    (tooltip (box :class "tooltip" tooltipText)
+      (button :onclick onclick
+        (box :orientation "v"
+          (box :class "t1" text)
+          (box :class "t2" text2))))))
 
 (defpoll windowtitle :interval "1s"
   "hyprctl activewindow -j | jq -r .title")
@@ -124,6 +125,9 @@
 
 (defpoll workspacewindows :interval "1s"
   `hyprctl workspaces -j | jq '([1,2,3,4,5,6,7,8,9,"special:A","special:S","special:D"] | map({ key: .|tostring, value: 0}) | from_entries) + (map({ key: .name, value: .windows }) | from_entries)'`)
+
+(defpoll workspacewindowtitles :interval "1s"
+  `hyprctl clients -j | jq '. | group_by(.workspace.name) | map({ key: .[0].workspace.name, value: map(.title + "\\n") | add }) | from_entries'`)
 
 (defpoll volume :interval "1s"
   "scripts/getvol")
@@ -156,10 +160,12 @@
         (for workspace in workspaces
           (pointerbutton2v :onclick "hyprctl dispatch workspace ${workspace} & eww close workspace_selector"
                            :text workspace
-                           :text2 {workspacewindows[workspace]}))))
+                           :text2 {workspacewindows[workspace]}
+                           :tooltipText {workspacewindowtitles[workspace] ?: ''}))))
     (box :orientation "h"
          :space-evenly true
       (for workspace in '["A","S", "D"]'
         (pointerbutton2v :onclick "hyprctl dispatch togglespecialworkspace ${workspace} & eww close workspace_selector"
                          :text workspace
-                         :text2 {workspacewindows["special:${workspace}"]})))))
+                         :text2 {workspacewindows["special:${workspace}"]}
+                         :tooltipText {workspacewindowtitles["special:${workspace}"] ?: ''})))))

@@ -154,6 +154,12 @@ $power-button-margin-inline: 1em;
   }
 }
 
+.tooltip {
+  background-color: black;
+  opacity: 0.75;
+  padding: 0.2em 0.5em;
+}
+
 .systray {
   margin-left: 0.5rem;
 }
