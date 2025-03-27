@@ -1,5 +1,7 @@
+(defvar disk "/var/home")
+
 (defwindow topbar_primary
-           :monitor 'DP-3'
+           :monitor 2
            :geometry (geometry :x "0%"
                                :y "0px"
                                :width "100%"
@@ -10,10 +12,11 @@
            :windowtype "dock"
            :wm-ignore false
            :exclusive true
-  (bar_primary))
+  (bar :monworkspaces '[2,5,7,8,9]'
+       :monitor 2))
 
 (defwindow topbar_right
-           :monitor 'DP-2'
+           :monitor 0
            :geometry (geometry :x "0%"
                                :y "0px"
                                :width "100%"
@@ -24,10 +27,11 @@
            :windowtype "dock"
            :wm-ignore false
            :exclusive true
-  (bar_right))
+  (bar :monworkspaces '[3,6,7,8,9]'
+       :monitor 0))
 
 (defwindow topbar_left
-           :monitor 'HDMI-A-2'
+           :monitor 1
            :geometry (geometry :x "0%"
                                :y "0px"
                                :width "100%"
@@ -37,23 +41,13 @@
            :windowtype "dock"
            :wm-ignore false
            :exclusive true
-  (bar_left))
+  (bar :monworkspaces '[1,4,7,8,9]'
+       :monitor 1))
 
-(defwidget bar_left []
+(defwidget bar [monworkspaces monitor]
   (centerbox :orientation "h"
-    (workspaces_left)
-    (window)
-    (sidestuff)))
-
-(defwidget bar_primary []
-  (centerbox :orientation "h"
-    (workspaces_primary)
-    (window)
-    (sidestuff)))
-
-(defwidget bar_right []
-  (centerbox :orientation "h"
-    (workspaces_right)
+    (workspaces :monworkspaces monworkspaces
+                :monitor monitor)
     (window)
     (sidestuff)))
 
@@ -69,7 +63,7 @@
             :value {EWW_RAM.used_mem_perc}
             :onchange "")
     (metric :label "💾"
-            :value {round((1 - (EWW_DISK["/var/home"].free / EWW_DISK["/var/home"].total)) * 100, 0)}
+            :value {round((1 - (EWW_DISK[disk].free / EWW_DISK[disk].total)) * 100, 0)}
             :onchange "")
     time))
 
@@ -80,44 +74,15 @@
          :halign "center"
          "🔌")))
 
-(defwidget workspaces_left []
+(defwidget workspaces [monworkspaces monitor]
   (box :class "workspaces"
        :orientation "h"
        :space-evenly false
        :halign "start"
-    (button :class "workspace-1 activeworkspace-${monitors[1].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 1" 1)
-    (button :class "workspace-4 activeworkspace-${monitors[1].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 4" 4)
-    (button :class "workspace-7 activeworkspace-${monitors[1].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 7" 7)
-    (button :class "workspace-8 activeworkspace-${monitors[1].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 8" 8)
-    (button :class "workspace-9 activeworkspace-${monitors[1].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 9" 9)
-    (button :class "special ${monitors[1].specialWorkspace.name == '' ? "empty" : ""}"
-      "${monitors[1].specialWorkspace.name =~ '^special:.+$' ? substring(monitors[1].specialWorkspace.name, 8, 1): ''}")))
-
-(defwidget workspaces_primary []
-  (box :class "workspaces"
-       :orientation "h"
-       :space-evenly true
-       :halign "start"
-    (button :class "workspace-2 activeworkspace-${monitors[2].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 2" 2)
-    (button :class "workspace-5 activeworkspace-${monitors[2].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 5" 5)
-    (button :class "workspace-7 activeworkspace-${monitors[2].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 7" 7)
-    (button :class "workspace-8 activeworkspace-${monitors[2].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 8" 8)
-    (button :class "workspace-9 activeworkspace-${monitors[2].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 9" 9)
-    (button :class "special ${monitors[2].specialWorkspace.name == '' ? "empty" : ""}"
-      "${monitors[2].specialWorkspace.name =~ '^special:.+$' ? substring(monitors[2].specialWorkspace.name, 8, 1): ''}")))
-
-(defwidget workspaces_right []
-  (box :class "workspaces"
-       :orientation "h"
-       :space-evenly true
-       :halign "start"
-    (button :class "workspace-3 activeworkspace-${monitors[0].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 3" 3)
-    (button :class "workspace-6 activeworkspace-${monitors[0].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 6" 6)
-    (button :class "workspace-7 activeworkspace-${monitors[0].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 7" 7)
-    (button :class "workspace-8 activeworkspace-${monitors[0].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 8" 8)
-    (button :class "workspace-9 activeworkspace-${monitors[0].activeWorkspace.name}" :onclick "hyprctl dispatch workspace 9" 9)
-    (button :class "special ${monitors[0].specialWorkspace.name == '' ? "empty" : ""}"
-      "${monitors[0].specialWorkspace.name =~ '^special:.+$' ? substring(monitors[0].specialWorkspace.name, 8, 1): ''}")))
+    (for workspace in monworkspaces
+      (button :class "workspace-${workspace} activeworkspace-${monitors[monitor].activeWorkspace.name}" :onclick "hyprctl dispatch workspace ${workspace}" {workspace}))
+    (button :class "special ${monitors[monitor].specialWorkspace.name == '' ? 'empty' : ''}"
+      {monitors[monitor].specialWorkspace.name =~ '^special:.+$' ? substring(monitors[monitor].specialWorkspace.name, 8, 1): ''})))
 
 (defwidget window []
   (box :class "window-title"
