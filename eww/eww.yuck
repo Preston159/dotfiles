@@ -69,7 +69,7 @@
 
 (defwidget power []
   (button :class "power-button"
-          :onclick "scripts/open-power-menu"
+          :onclick "scripts/open-window-at-cursor power_menu"
     (box
          :halign "center"
          "🔌")))
@@ -118,12 +118,25 @@
   `date +'{"hour":"%H","minute":"%M","dow":"%a","month":"%b","day":"%d"}'`)
 
 (defwindow power_menu [mon x y]
-  :geometry (geometry :x x
-                      :y y)
-  :monitor mon
+           :geometry (geometry :x x
+                               :y y)
+           :monitor mon
   (box :orientation "v"
        :space-evenly true
     (button :onclick "shutdown -h now"
       (box "shutdown"))
     (button :onclick "shutdown -r now"
       (box "restart"))))
+
+(defwindow workspace_selector [mon x y]
+           :geometry (geometry :x x
+                               :y y)
+           :monitor mon
+           :stacking "fg"
+  (box :orientation "v"
+       :space-evenly true
+    (for workspaces in '[[1,2,3],[4,5,6],[7,8,9],["A","S","D"]]'
+      (box :orientation "h"
+           :space-evenly true
+        (for workspace in workspaces
+          (button workspace))))))
