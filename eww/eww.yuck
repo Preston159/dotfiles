@@ -65,7 +65,7 @@
     (metric :label "💾"
             :value {round((1 - (EWW_DISK[disk].free / EWW_DISK[disk].total)) * 100, 0)}
             :onchange "")
-    time))
+    (box "${time.hour}:${time.minute} ${time.dow} ${time.month} ${time.day}")))
 
 (defwidget power []
   (button :class "power-button"
@@ -115,7 +115,7 @@
   "scripts/getvol")
 
 (defpoll time :interval "2s"
-  "date '+%H:%M %a %b %d'")
+  `date +'{"hour":"%H","minute":"%M","dow":"%a","month":"%b","day":"%d"}'`)
 
 (defwindow power_menu [mon x y]
   :geometry (geometry :x x
