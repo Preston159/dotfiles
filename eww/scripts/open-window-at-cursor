@@ -1,4 +1,7 @@
 #!/bin/bash
+WINDOW="$1"
+OFFSET_X="$2"
+OFFSET_Y="$3"
 MONITORS="$(hyprctl monitors -j)"
 CURSORPOS="$(hyprctl cursorpos -j)"
 CURSOR_X="$(echo "$CURSORPOS" | jq .x)"
@@ -15,4 +18,4 @@ for i in {0..2}; do
     MON_Y="$(("$CURSOR_Y" - "$MONITOR_Y"))"
   fi
 done
-eww open power_menu --toggle --arg mon=$MON --arg x=$(($MON_X - 20)) --arg y=$(($MON_Y - 20))
+eww open $WINDOW --toggle --arg mon=$MON --arg x=$(($MON_X + $OFFSET_X)) --arg y=$(($MON_Y + $OFFSET_Y))
