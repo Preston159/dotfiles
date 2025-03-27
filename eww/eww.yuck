@@ -106,6 +106,13 @@
   (eventbox :cursor "pointer"
     (button :onclick onclick text)))
 
+(defwidget pointerbutton2v [onclick text text2]
+  (eventbox :cursor "pointer"
+    (button :onclick onclick  
+      (box :orientation "v"
+        (box :class "t1" text)
+        (box :class "t2" text2)))))
+
 (defpoll windowtitle :interval "1s"
   "hyprctl activewindow -j | jq -r .title")
 
@@ -114,6 +121,9 @@
 
 (defpoll monitors :interval "1s"
   "hyprctl monitors -j")
+
+(defpoll workspacewindows :interval "1s"
+  `hyprctl workspaces -j | jq '([1,2,3,4,5,6,7,8,9,"special:A","special:S","special:D"] | map({ key: .|tostring, value: 0}) | from_entries) + (map({ key: .name, value: .windows }) | from_entries)'`)
 
 (defpoll volume :interval "1s"
   "scripts/getvol")
@@ -144,8 +154,8 @@
       (box :orientation "h"
            :space-evenly true
         (for workspace in workspaces
-          (pointerbutton :onclick "hyprctl dispatch workspace ${workspace} & eww close workspace_selector" :text workspace))))
+          (pointerbutton2v :onclick "hyprctl dispatch workspace ${workspace} & eww close workspace_selector" :text workspace :text2 {workspacewindows[workspace]}))))
     (box :orientation "h"
          :space-evenly true
       (for workspace in '["A","S", "D"]'
-        (pointerbutton :onclick "hyprctl dispatch togglespecialworkspace ${workspace} & eww close workspace_selector" :text workspace)))))
+        (pointerbutton2v :onclick "hyprctl dispatch togglespecialworkspace ${workspace} & eww close workspace_selector" :text workspace :text2 {workspacewindows["special:${workspace}"]})))))
