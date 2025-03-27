@@ -120,7 +120,20 @@ $power-button-margin-inline: 1em;
 }
 
 .workspace_selector {
+  $button-size: 3em;
+  $button-border: 1px solid blue;
+
+  * {
+    all: unset;
+  }
+
   background-color: black;
   opacity: 0.7;
-  padding: 1em;
+  // padding: 1em;
+
+  button {
+    min-width: $button-size;
+    min-height: $button-size;
+    border: $button-border;
+  }
 }
