@@ -40,7 +40,7 @@
                      :onclick "hyprctl dispatch workspace ${workspace}"
                      :text {workspace}))
     (pointerbutton :class "special ${monitors[monitor].specialWorkspace.name == '' ? 'empty' : ''}"
-                   :onclick "hyprctl dispatch togglespecialworkspace ${workspace}"
+                   :onclick "hyprctl dispatch togglespecialworkspace ${substring(monitors[monitor].specialWorkspace.name, 8, 1)}"
                    :text {monitors[monitor].specialWorkspace.name =~ '^special:.+$' ? substring(monitors[monitor].specialWorkspace.name, 8, 1): ''})))
 
 (defwidget window []
