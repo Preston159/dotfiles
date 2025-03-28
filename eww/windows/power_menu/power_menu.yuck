@@ -4,7 +4,7 @@
            :monitor mon
   (box :orientation "v"
        :space-evenly true
-    (button :onclick "shutdown -h now"
-      (box "shutdown"))
-    (button :onclick "shutdown -r now"
-      (box "restart"))))
+    (pointerbutton :onclick "shutdown -h now"
+                   :text "shutdown")
+    (pointerbutton :onclick "shutdown -r now"
+                   :text "restart")))

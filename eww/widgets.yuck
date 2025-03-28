@@ -1,3 +1,5 @@
-(defwidget pointerbutton [onclick text]
+(defwidget pointerbutton [onclick text ?class]
   (eventbox :cursor "pointer"
-    (button :onclick onclick text)))
+    (button :onclick onclick
+            :class class
+      text)))
