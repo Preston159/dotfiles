@@ -1,0 +1,3 @@
+(defwidget pointerbutton [onclick text]
+  (eventbox :cursor "pointer"
+    (button :onclick onclick text)))

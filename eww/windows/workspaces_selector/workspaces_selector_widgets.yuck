@@ -1,0 +1,7 @@
+(defwidget workspacebutton [onclick text text2 ?tooltipText]
+  (eventbox :cursor "pointer"
+    (tooltip (box :class "tooltip" tooltipText)
+      (button :onclick onclick
+        (box :orientation "v"
+          (box :class "t1" text)
+          (box :class "t2" text2))))))

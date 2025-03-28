@@ -1,0 +1,10 @@
+(defwindow power_menu [mon x y]
+           :geometry (geometry :x x
+                               :y y)
+           :monitor mon
+  (box :orientation "v"
+       :space-evenly true
+    (button :onclick "shutdown -h now"
+      (box "shutdown"))
+    (button :onclick "shutdown -r now"
+      (box "restart"))))
