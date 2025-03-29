@@ -1,11 +1,21 @@
 (defwidget bar [monworkspaces monitor]
   (centerbox :orientation "h"
+    (left :monworkspaces monworkspaces
+          :monitor monitor)
+    (center)
+    (right)))
+
+(defwidget left [monworkspaces monitor]
+  (box :orientation "h"
+       :space-evenly false
     (workspaces :monworkspaces monworkspaces
                 :monitor monitor)
-    (window)
-    (sidestuff)))
+    (systray :class "systray")))
 
-(defwidget sidestuff []
+(defwidget center []
+  (window))
+
+(defwidget right []
   (box :class "sidestuff"
        :orientation "h"
        :space-evenly false
@@ -22,8 +32,7 @@
     (metric :label "💾"
             :value {round((1 - (EWW_DISK[disk].free / EWW_DISK[disk].total)) * 100, 0)}
             :onchange "")
-    (box "${time.hour}:${time.minute} ${time.dow} ${time.month} ${time.day}")
-    (systray :class "systray")))
+    (box "${time.hour}:${time.minute} ${time.dow} ${time.month} ${time.day}")))
 
 (defwidget power []
   (pointerbutton :class "power-button"
