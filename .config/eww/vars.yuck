@@ -9,6 +9,9 @@
 (defpoll monitors :interval "1s"
   "hyprctl monitors -j")
 
+(defpoll specialworkspaces :interval "1s"
+  "hyprctl workspaces -j | jq '. | map(select(.id < 0)) | map(.name)'")
+
 (defpoll volume :interval "1s"
   "scripts/getvol")
 
