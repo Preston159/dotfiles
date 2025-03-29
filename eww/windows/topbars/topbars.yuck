@@ -14,7 +14,7 @@
        :monitor 2))
 
 (defwindow topbar_right
-           :monitor 0
+           :monitor 1
            :geometry (geometry :x "0%"
                                :y "0px"
                                :width "100%"
@@ -24,10 +24,10 @@
            :wm-ignore false
            :exclusive true
   (bar :monworkspaces '[3,6,7,8,9]'
-       :monitor 0))
+       :monitor 1))
 
 (defwindow topbar_left
-           :monitor 1
+           :monitor 0
            :geometry (geometry :x "0%"
                                :y "0px"
                                :width "100%"
@@ -38,4 +38,4 @@
            :wm-ignore false
            :exclusive true
   (bar :monworkspaces '[1,4,7,8,9]'
-       :monitor 1))
+       :monitor 0))
