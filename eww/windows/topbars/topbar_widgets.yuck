@@ -36,7 +36,7 @@
        :space-evenly false
        :halign "start"
     (for workspace in monworkspaces
-      (pointerbutton :class "workspace-${workspace} activeworkspace-${monitors[monitor].activeWorkspace.name}"
+      (pointerbutton :class "workspace-${workspace} activeworkspace-${monitors[monitor].activeWorkspace.name} ${monitors[monitor].specialWorkspace.name == '' ? '' : 'special-active'}"
                      :onclick "hyprctl dispatch workspace ${workspace}"
                      :text {workspace}))
     (pointerbutton :class "special ${monitors[monitor].specialWorkspace.name == '' ? 'empty' : ''}"

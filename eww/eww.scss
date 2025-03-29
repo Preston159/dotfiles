@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $color-text: #ffffff;
 $padding-vertical: 0;
 $padding-left: 0;
@@ -6,7 +8,7 @@ $background-color: #333;
 $opacity: 1.0;
 
 
-$workspaces-color-active: #d35d6e;
+$workspaces-color-active: rgb(211,93,110);
 $workspaces-color-hover: #ff00dd;
 $workspaces-color-text: $color-text;
 
@@ -38,24 +40,32 @@ $power-button-margin-inline: 1em;
   padding: $padding-vertical $padding-right $padding-vertical $padding-left;
 }
 
+$workspaces-color-inactive: rgb(0,0,0);
+
 .workspaces {
   color: $workspaces-color-text;
 
-  button {
-    padding: 0 1em;
-    border-bottom: 3px solid black;
+  .pointerbutton {
+    border-bottom: 3px solid $workspaces-color-inactive;
+
+    button {
+      padding: 0 1em;
+    }
 
     &.empty {
-      padding: 0;
       border: none;
+
+      button {
+        padding: 0;
+      }
     }
   }
 
-  button.special {
+  .pointerbutton.special {
     border-color: $workspaces-color-active;
   }
 
-  button:hover {
+  .pointerbutton:hover {
     border-color: $workspaces-color-hover;
   }
 }
@@ -63,6 +73,10 @@ $power-button-margin-inline: 1em;
 @mixin active-workspace($i) {
   .workspace-#{$i}.activeworkspace-#{$i} {
     border-color: $workspaces-color-active;
+
+    &.special-active {
+      border-color: color.mix($workspaces-color-active, $workspaces-color-inactive, $weight: 50%);
+    }
   }
 }
 @for $i from 1 through 9 {
@@ -93,12 +107,11 @@ $power-button-margin-inline: 1em;
   margin-right: 20px;
 }
 
-.power-button {
-  min-width: $power-button-width;
+.power-button button {
   border: 1px solid $power-button-color-border;
   border-radius: $power-button-border-radius;
+  min-width: $power-button-width;
   margin: 0 $power-button-margin-inline;
-
   @include bar-button();
 }
 
