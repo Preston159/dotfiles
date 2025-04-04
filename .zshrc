@@ -19,6 +19,7 @@ alias grepi="grep -i -E"
 alias bgrepi="grep -i"
 alias idrive="distrobox enter fedora -- /opt/IDriveForLinux/bin/idrive"
 alias cget="curl -Lo"
+alias a="atuin"
 
 box () {
 	if [[ -e /run/.containerenv ]]; then
@@ -200,3 +201,5 @@ fi
 if [[ "$(box)" = "host" ]]; then
   eval "$(zoxide init --cmd cd zsh)"
 fi
+
+eval "$(atuin init zsh)"
