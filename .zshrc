@@ -37,6 +37,21 @@ box () {
 
 box
 
+ss () {
+	local NAME=$1
+	shift 1
+	atuin kv set --namespace scripts --key $NAME $@
+}
+
+rs () {
+	local NAME=$1
+	shift 1
+	eval "_atuin_saved_script () {\
+		$(atuin kv get --namespace scripts $NAME)\
+	}"
+	_atuin_saved_script $@
+}
+
 if [[ "$RUN" == ",tm" && -z $TMUX ]]; then
 	echo "${TARGET_SESSION}"
 	,tm "${TARGET_SESSION}"
@@ -203,3 +218,4 @@ if [[ "$(box)" = "host" ]]; then
 fi
 
 eval "$(atuin init zsh)"
+eval "$(atuin gen-completions --shell zsh)"
