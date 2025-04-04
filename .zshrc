@@ -10,7 +10,7 @@ PATH="${PATH}:$(realpath ~)/bin"
 
 EDITOR="/usr/bin/vim"
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 alias db="distrobox"
 alias grep="grep -E"
@@ -23,13 +23,13 @@ alias a="atuin"
 
 box () {
 	if [[ -e /run/.containerenv ]]; then
-		CONTAINER="$(cat /run/.containerenv | grep name | cut -d'=' -f 2 | cut -d'"' -f 2)"
-		if [[ "$CONTAINER" == "node" ]]; then
+		CONTAINER=$(cat /run/.containerenv | grep name | cut -d'=' -f 2 | cut -d'"' -f 2)
+		if [[ $CONTAINER == "node" ]]; then
 			export NVM_DIR="$HOME/.config/nvm"
 			[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 			[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 		fi
-		echo "$CONTAINER"
+		echo $CONTAINER
 	else
 		echo "host"
 	fi
@@ -52,16 +52,16 @@ rs () {
 	_atuin_saved_script $@
 }
 
-if [[ "$RUN" == ",tm" && -z $TMUX ]]; then
-	echo "${TARGET_SESSION}"
-	,tm "${TARGET_SESSION}"
+if [[ $RUN == ",tm" && -z $TMUX ]]; then
+	echo $TARGET_SESSION
+	,tm $TARGET_SESSION
 fi
 
 csuggest() {
 	FUNCNAME="$funcstack[1]"
 	TARGET="shell"
-	local GH_DEBUG="$GH_DEBUG"
-	local GH_HOST="$GH_HOST"
+	local GH_DEBUG=$GH_DEBUG
+	local GH_HOST=$GH_HOST
 
 	read -r -d '' __USAGE <<-EOF
 	Wrapper around \`gh copilot suggest\` to suggest a command based on a natural language description of the desired output effort.
@@ -101,43 +101,43 @@ csuggest() {
 
 	local OPT OPTARG OPTIND
 	while getopts "dht:-:" OPT; do
-		if [ "$OPT" = "-" ]; then     # long option: reformulate OPT and OPTARG
-			OPT="${OPTARG%%=*}"       # extract long option name
-			OPTARG="${OPTARG#"$OPT"}" # extract long option argument (may be empty)
-			OPTARG="${OPTARG#=}"      # if long option argument, remove assigning `=`
+		if [ $OPT = "-" ]; then     # long option: reformulate OPT and OPTARG
+			OPT=${OPTARG%%=*}       # extract long option name
+			OPTARG=${OPTARG#$OPT} # extract long option argument (may be empty)
+			OPTARG=${OPTARG#=}      # if long option argument, remove assigning `=`
 		fi
 
 		case "$OPT" in
 			debug | d)
-				GH_DEBUG=api
+				GH_DEBUG="api"
 				;;
 
 			help | h)
-				echo "$__USAGE"
+				echo $__USAGE
 				return 0
 				;;
 
 			hostname)
-				GH_HOST="$OPTARG"
+				GH_HOST=$OPTARG
 				;;
 
 			target | t)
-				TARGET="$OPTARG"
+				TARGET=$OPTARG
 				;;
 		esac
 	done
 
 	# shift so that $@, $1, etc. refer to the non-option arguments
-	shift "$((OPTIND-1))"
+	shift $((OPTIND-1))
 
-	TMPFILE="$(mktemp -t gh-copilotXXXXXX)"
+	TMPFILE=$(mktemp -t gh-copilotXXXXXX)
 	trap 'rm -f "$TMPFILE"' EXIT
-	if GH_DEBUG="$GH_DEBUG" GH_HOST="$GH_HOST" gh copilot suggest -t "$TARGET" "$@" --shell-out "$TMPFILE"; then
+	if GH_DEBUG=$GH_DEBUG GH_HOST=$GH_HOST gh copilot suggest -t $TARGET "$@" --shell-out $TMPFILE; then
 		if [ -s "$TMPFILE" ]; then
-			FIXED_CMD="$(cat $TMPFILE)"
-			print -s "$FIXED_CMD"
+			FIXED_CMD=$(cat $TMPFILE)
+			print -s $FIXED_CMD
 			echo
-			eval "$FIXED_CMD"
+			eval $FIXED_CMD
 		fi
 	else
 		return 1
@@ -146,8 +146,8 @@ csuggest() {
 
 cexplain() {
 	FUNCNAME="$funcstack[1]"
-	local GH_DEBUG="$GH_DEBUG"
-	local GH_HOST="$GH_HOST"
+	local GH_DEBUG=$GH_DEBUG
+	local GH_HOST=$GH_HOST
 
 	read -r -d '' __USAGE <<-EOF
 	Wrapper around \`gh copilot explain\` to explain a given input command in natural language.
@@ -174,32 +174,32 @@ cexplain() {
 
 	local OPT OPTARG OPTIND
 	while getopts "dh-:" OPT; do
-		if [ "$OPT" = "-" ]; then     # long option: reformulate OPT and OPTARG
-			OPT="${OPTARG%%=*}"       # extract long option name
-			OPTARG="${OPTARG#"$OPT"}" # extract long option argument (may be empty)
-			OPTARG="${OPTARG#=}"      # if long option argument, remove assigning `=`
+		if [ $OPT = "-" ]; then     # long option: reformulate OPT and OPTARG
+			OPT=${OPTARG%%=*}       # extract long option name
+			OPTARG=${OPTARG#$OPT} # extract long option argument (may be empty)
+			OPTARG=${OPTARG#=}      # if long option argument, remove assigning `=`
 		fi
 
-		case "$OPT" in
+		case $OPT in
 			debug | d)
-				GH_DEBUG=api
+				GH_DEBUG="api"
 				;;
 
 			help | h)
-				echo "$__USAGE"
+				echo $__USAGE
 				return 0
 				;;
 
 			hostname)
-				GH_HOST="$OPTARG"
+				GH_HOST=$OPTARG
 				;;
 		esac
 	done
 
 	# shift so that $@, $1, etc. refer to the non-option arguments
-	shift "$((OPTIND-1))"
+	shift $((OPTIND-1))
 
-	GH_DEBUG="$GH_DEBUG" GH_HOST="$GH_HOST" gh copilot explain "$@"
+	GH_DEBUG=$GH_DEBUG GH_HOST=$GH_HOST gh copilot explain "$@"
 }
 
 export DOTNET_ROOT="/home/linuxbrew/.linuxbrew/opt/dotnet/libexec"
@@ -209,13 +209,13 @@ export PATH="$HOME/jdk-23/bin/:$PATH"
 FNM_PATH="$HOME/.local/share/fnm"
 if [ -d "$FNM_PATH" ]; then
   export PATH="$HOME/.local/share/fnm:$PATH"
-  eval "`fnm env`"
+  eval $(fnm env)
 fi
 
 # zoxide
-if [[ "$(box)" = "host" ]]; then
-  eval "$(zoxide init --cmd cd zsh)"
+if [[ $(box) = "host" ]]; then
+  eval $(zoxide init --cmd cd zsh)
 fi
 
-eval "$(atuin init zsh)"
-eval "$(atuin gen-completions --shell zsh)"
+eval $(atuin init zsh)
+eval $(atuin gen-completions --shell zsh)
