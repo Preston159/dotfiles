@@ -58,7 +58,7 @@
        :orientation "h"
        :space-evenly false
        :halign "center"
-    windowtitle))
+    {windowtitle ?: ''}))
 
 (defwidget metric [label value onchange]
   (box :orientation "h"
