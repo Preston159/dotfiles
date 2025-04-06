@@ -21,23 +21,28 @@
        :space-evenly false
        :halign "end"
     (power)
-    (pointerbutton :onclick "pavucontrol &"
-                   :text "🔊")
-    (metric :label ""
-            :value volume
-            :onchange "amixer sset Master {}%")
-    (metric :label "🐏"
-            :value {EWW_RAM.used_mem_perc}
-            :onchange "")
-    (metric :label "💾"
-            :value {round((1 - (EWW_DISK[disk].free / EWW_DISK[disk].total)) * 100, 0)}
-            :onchange "")
+    (tooltip (box :class "tooltip" "Open Volume Control")
+      (pointerbutton :onclick "pavucontrol &"
+                    :text "🔊"))
+    (tooltip (box :class "tooltip" "Volume")
+      (metric :label ""
+              :value volume
+              :onchange "amixer sset Master {}%"))
+    (tooltip (box :class "tooltip" "Memory Usage")
+      (metric :label "🐏"
+              :value {EWW_RAM.used_mem_perc}
+              :onchange ""))
+    (tooltip (box :class "tooltip" "${disk} Disk Usage")
+      (metric :label "💾"
+              :value {round((1 - (EWW_DISK[disk].free / EWW_DISK[disk].total)) * 100, 0)}
+              :onchange ""))
     (box "${time.hour}:${time.minute} ${time.dow} ${time.month} ${time.day}")))
 
 (defwidget power []
-  (pointerbutton :class "power-button"
-                 :onclick "scripts/open-window-at-cursor power_menu -20 -20"
-                 :text "🔌"))
+  (tooltip (box :class "tooltip" "Power")
+    (pointerbutton :class "power-button"
+                  :onclick "scripts/open-window-at-cursor power_menu -20 -20"
+                  :text "🔌")))
 
 (defwidget workspaces [monworkspaces monitor]
   (box :class "workspaces"
