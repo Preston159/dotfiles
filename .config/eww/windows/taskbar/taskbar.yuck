@@ -12,8 +12,9 @@
   (box :orientation "h"
        :space-evenly false
     (for client in clients
-      (box :class "taskbar-window"
-           :space-evenly false
-           :halign "start" 
-        (pointerbutton :onclick "hyprctl dispatch focuswindow 'address:${client.address}'"
-                       :text {strlength(client.title) > 20 ? "${substring(client.title, 0, 20)}..." : client.title})))))
+      (eventbox :onclick "hyprctl dispatch focuswindow 'address:${client.address}'"
+                :cursor "pointer"
+        (box :class "taskbar-window"
+             :space-evenly false
+             :halign "start" 
+          {strlength(client.title) > 20 ? "${substring(client.title, 0, 20)}..." : client.title})))))
