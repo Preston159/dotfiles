@@ -14,4 +14,6 @@
     (for client in clients
       (box :class "taskbar-window"
            :space-evenly false
-           :halign "start" {strlength(client.title) > 20 ? "${substring(client.title, 0, 20)}..." : client.title}))))
+           :halign "start" 
+        (pointerbutton :onclick "hyprctl dispatch focuswindow 'address:${client.address}'"
+                       :text {strlength(client.title) > 20 ? "${substring(client.title, 0, 20)}..." : client.title})))))
