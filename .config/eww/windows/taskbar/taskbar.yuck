@@ -12,4 +12,6 @@
   (box :orientation "h"
        :space-evenly false
     (for client in clients
-      (box :class "taskbar-window" {strlength(client.title) > 20 ? "${substring(client.title, 0, 20)}..." : client.title}))))
+      (box :class "taskbar-window"
+           :space-evenly false
+           :halign "start" {strlength(client.title) > 20 ? "${substring(client.title, 0, 20)}..." : client.title}))))

@@ -163,3 +163,9 @@ $workspaces-color-inactive: rgb(0,0,0);
 .taskbar {
   background-color: black;
 }
+
+.taskbar-window {
+  min-width: 12em;
+  padding-left: 1em;
+  border: 1px solid white;
+}
