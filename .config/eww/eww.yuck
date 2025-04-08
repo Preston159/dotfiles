@@ -4,3 +4,4 @@
 (include "windows/workspaces_selector/workspaces_selector.yuck")
 (include "windows/topbars/topbars.yuck")
 (include "windows/power_menu/power_menu.yuck")
+(include "windows/taskbar/taskbar.yuck")
