@@ -1,7 +1,7 @@
 (include "windows/topbars/topbar_widgets.yuck")
 
 (defwindow topbar_primary
-           :monitor 2
+           :monitor "DP-3"
            :geometry (geometry :x "0%"
                                :y "0px"
                                :width "100%"
@@ -14,7 +14,7 @@
        :monitor 2))
 
 (defwindow topbar_right
-           :monitor 1
+           :monitor "HDMI-A-2"
            :geometry (geometry :x "0%"
                                :y "0px"
                                :width "100%"
@@ -27,7 +27,7 @@
        :monitor 1))
 
 (defwindow topbar_left
-           :monitor 0
+           :monitor "DP-2"
            :geometry (geometry :x "0%"
                                :y "0px"
                                :width "100%"
