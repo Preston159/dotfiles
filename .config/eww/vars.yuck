@@ -1,8 +1,5 @@
 (defvar disk "/var/home")
 
-(defpoll windowtitle :interval "1s"
-  "hyprctl activewindow -j | jq -r .title")
-
 (defpoll activeworkspace :interval "1s"
   "hyprctl activeworkspace -j | jq -r .id")
 
@@ -20,3 +17,7 @@
 
 (defpoll time :interval "2s"
   `date +'{"hour":"%H","minute":"%M","dow":"%a","month":"%b","day":"%d"}'`)
+
+(deflisten windowtitle :initial "test"
+                       :timeout "1s"
+  `scripts/handle-window-focus-change`)
