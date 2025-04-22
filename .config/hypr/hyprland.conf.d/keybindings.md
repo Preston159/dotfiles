@@ -28,8 +28,12 @@
 | SUPER + W | show workspace selector |
 | SUPER + [(n=)0-9] | switch to workspace n |
 | SUPER + SHIFT + [(n=)0-9] | move window to workspace n |
-| SUPER + [(n=)A\|S\|D] | toggle special workspace n |
-| SUPER + SHIFT + [(n=)A\|S\|D] | move window to special workspace n |
+| SUPER + [(n=)A\|D] | toggle special workspace n |
+| SUPER + SHIFT + [(n=)A\|D] | move window to special workspace n |
+| SUPER + S | toggle special workspace Steam |
+| SUPER + SHIFT + S | move window to special workspace Steam |
+| SUPER + V | toggle special workspace Volume |
+| SUPER + SHIFT + V | move window to special workspace Volume |
 | SUPER + mouse_down | next active workspace |
 | SUPER + mouse_up | previous active workspace |
 | SUPER + left click | movewindow |
