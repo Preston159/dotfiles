@@ -48,3 +48,4 @@
 | SUPER + Space | switch keyboard layout |
 | SUPER + M | log out |
 | CTRL + Print | take screenshot |
+| CTRL + SHIFT + Print | take screenshot with delay |
