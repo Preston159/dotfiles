@@ -1,7 +1,7 @@
 (include "windows/topbars/topbar_widgets.yuck")
 
 (defwindow topbar_primary
-           :monitor "DP-3"
+           :monitor "DP-1"
            :geometry (geometry :x "0%"
                                :y "0px"
                                :width "100%"
@@ -11,10 +11,10 @@
            :wm-ignore false
            :exclusive true
   (bar :monworkspaces '[2,5,7,8,9]'
-       :monitor 2))
+       :monitor 0))
 
 (defwindow topbar_right
-           :monitor "HDMI-A-2"
+           :monitor "HDMI-A-1"
            :geometry (geometry :x "0%"
                                :y "0px"
                                :width "100%"
@@ -24,7 +24,7 @@
            :wm-ignore false
            :exclusive true
   (bar :monworkspaces '[3,6,7,8,9]'
-       :monitor 1))
+       :monitor 2))
 
 (defwindow topbar_left
            :monitor "DP-2"
@@ -38,4 +38,4 @@
            :wm-ignore false
            :exclusive true
   (bar :monworkspaces '[1,4,7,8,9]'
-       :monitor 0))
+       :monitor 1))
