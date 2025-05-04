@@ -12,6 +12,7 @@
 | hotkey | action |
 | ------ | ------ |
 | SUPER + C | close active window |
+| SUPER + SHIFT + C | kill active window |
 | SUPER + H | toggle floating |
 | SUPER + P | pseudotile |
 | SUPER + J | toggle split |
