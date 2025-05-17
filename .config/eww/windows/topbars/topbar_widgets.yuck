@@ -20,6 +20,7 @@
        :orientation "h"
        :space-evenly false
        :halign "end"
+    (kblayout)
     (power)
     (tooltip (box :class "tooltip" "Open Volume Control")
       (pointerbutton :onclick "pavucontrol &"
@@ -75,3 +76,6 @@
            :active {onchange != ""}
            :value value
            :onchange onchange)))
+
+(defwidget kblayout []
+  (box kblayout))

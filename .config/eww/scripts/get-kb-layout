@@ -1,0 +1,12 @@
+#!/usr/bin/zsh
+
+LAYOUT=$(hyprctl devices -j | jq -r '.keyboards | map(select(.name == "mountain-mountain-everest-keyboard-1")).[0].active_keymap')
+
+case $LAYOUT in
+  "English (US)")
+    echo "US";;
+  "English (US, intl"*)
+    echo "INTL";;
+  *)
+    echo "UNKNOWN";;
+esac

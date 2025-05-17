@@ -21,3 +21,6 @@
 (deflisten windowtitle :initial "test"
                        :timeout "1s"
   `scripts/handle-window-focus-change`)
+
+(defpoll kblayout :interval "1s"
+  `scripts/get-kb-layout`)
