@@ -17,7 +17,6 @@ alias grep="grep -E"
 alias bgrep="grep"
 alias grepi="grep -i -E"
 alias bgrepi="grep -i"
-alias idrive="distrobox enter fedora -- /opt/IDriveForLinux/bin/idrive"
 alias cget="curl -Lo"
 alias a="atuin"
 
