@@ -7,7 +7,7 @@
   "hyprctl monitors -j")
 
 (defpoll specialworkspaces :interval "1s"
-  "hyprctl workspaces -j | jq '. | map(select(.id < 0)) | map(.name)'")
+  "hyprctl workspaces -j | jq '. | map(select(.id < 0)) | map(.name) | map(select(. != \"special:hidden\"))'")
 
 (defpoll clients :interval "2s"
   "hyprctl clients -j")
