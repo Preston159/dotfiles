@@ -1,0 +1,11 @@
+@mixin bar-button() {
+  &:hover {
+    background-color: rgba(139, 139, 139, 0.411);
+  }
+}
+
+.tooltip {
+  background-color: black;
+  opacity: 0.75;
+  padding: 0.2em 0.5em;
+}

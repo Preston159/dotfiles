@@ -1,0 +1,32 @@
+@use "sass:color";
+
+$color-text: #ffffff !default;
+
+$workspaces-color-active: rgb(211,93,110);
+$workspaces-color-hover: #ff00dd;
+$workspaces-color-text: $color-text;
+$workspaces-color-inactive: rgba(0,0,0,0);
+
+.workspaces {
+  color: $workspaces-color-text;
+
+  .pointerbutton {
+    border-top: 3px solid $workspaces-color-inactive;
+
+    button {
+      padding: 0 1em;
+    }
+
+    &.active {
+      border-color: $workspaces-color-active;
+
+      &.special-active {
+        border-color: color.mix($workspaces-color-active, $workspaces-color-inactive, $weight: 50%);
+      }
+    }
+  }
+
+  .pointerbutton:hover {
+    border-color: $workspaces-color-hover;
+  }
+}

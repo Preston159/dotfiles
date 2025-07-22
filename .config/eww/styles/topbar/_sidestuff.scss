@@ -1,0 +1,63 @@
+@use "../shared";
+
+@use "systray" with (
+  $opacity-default: 0.3,
+);
+
+$color-text: #fff !default;
+$color-slider: #d35d6e !default;
+$color-slider-background: #4e4e4e !default;
+
+$power-button-width: 70px !default;
+$power-button-color-border: transparent !default;
+$power-button-border-radius: 0.5em !default;
+$power-button-margin-inline: 1em !default;
+
+.sidestuff {
+  color: $color-text;
+
+  slider {
+    all: unset;
+  }
+
+  .metric scale trough highlight {
+    all: unset;
+    background-color: $color-slider;
+    border-radius: 10px;
+  }
+
+  .metric scale trough {
+    all: unset;
+    background-color: $color-slider-background;
+    border-radius: 50px;
+    min-height: 3px;
+    min-width: 50px;
+    margin-left: 10px;
+    margin-right: 20px;
+  }
+}
+
+.power-button button {
+  border: 1px solid $power-button-color-border;
+  border-radius: $power-button-border-radius;
+  min-width: $power-button-width;
+  margin: 0 $power-button-margin-inline;
+  @include shared.bar-button();
+}
+
+.label-ram {
+  font-size: large;
+}
+
+.power_menu {
+  padding: 0.3em;
+  background-color: black;
+  border-radius: 0.5em;
+
+  button {
+    border: 1px solid purple;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin: 0.1em;
+  }
+}

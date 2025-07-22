@@ -10,7 +10,8 @@
        :space-evenly false
     (workspaces :monworkspaces monworkspaces
                 :monitor monitor)
-    (systray :class "systray")))
+    (eventbox :class "systray-container"
+      (systray :class "systray"))))
 
 (defwidget center []
   (window))
@@ -42,8 +43,8 @@
 (defwidget power []
   (tooltip (box :class "tooltip" "Power")
     (pointerbutton :class "power-button"
-                  :onclick "scripts/open-window-at-cursor power_menu -20 -20"
-                  :text "🔌")))
+                   :onclick "scripts/open-window-at-cursor power_menu -20 -20"
+                   :text "🔌")))
 
 (defwidget workspaces [monworkspaces monitor]
   (box :class "workspaces"

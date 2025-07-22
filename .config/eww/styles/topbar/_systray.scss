@@ -1,0 +1,30 @@
+$opacity-default: 1.0 !default;
+$opacity-hover: 1.0 !default;
+$icon-spacing: 0.5rem !default;
+
+.systray-container {
+  opacity: $opacity-default;
+
+  &:hover {
+    opacity: $opacity-hover;
+  }
+
+  .systray {
+    image {
+      margin-left: $icon-spacing;
+    }
+  }
+}
+
+menu {
+  background-color: black;
+
+  menuitem {
+    padding: 0.3em;
+
+    &:hover {
+      background-color: blue;
+    }
+  }
+}
+

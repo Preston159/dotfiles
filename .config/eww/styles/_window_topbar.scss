@@ -1,0 +1,23 @@
+$color-text: #ffffff !default;
+$background-color: rgba(0, 0, 0, 0.0) !default;
+$opacity: 1.0 !default;
+$padding-vertical: 0 !default;
+$padding-left: 0 !default;
+$padding-right: 10px !default;
+
+@use "topbar/workspaces" with (
+  $color-text: $color-text,
+);
+
+@use "topbar/sidestuff" with (
+  $color-text: $color-text,
+);
+
+.topbar_primary, .topbar_left, .topbar_right {
+  background-color: $background-color;
+  opacity: $opacity;
+  background-size: cover;
+  background-position: center;
+  color: $color-text;
+  padding: $padding-vertical $padding-right $padding-vertical $padding-left;
+}
