@@ -1,6 +1,11 @@
 #!/usr/bin/zsh
 
-LAYOUT=$(hyprctl devices -j | jq -r '.keyboards | map(select(.name == "mountain-mountain-everest-keyboard-1")).[0].active_keymap')
+# sinowealth-gaming-kb--keyboard wireless
+# sino-wealth-gaming-keyboard-1 usb
+LAYOUT=$(hyprctl devices -j | jq -r '.keyboards | map(select(.name == "sino-wealth-gaming-keyboard-1")).[0].active_keymap')
+if [[ $LAYOUT = "null" ]]; then
+  LAYOUT=$(hyprctl devices -j | jq -r '.keyboards | map(select(.name == "sinowealth-gaming-kb--keyboard")).[0].active_keymap')
+fi
 
 case $LAYOUT in
   "English (US)")
